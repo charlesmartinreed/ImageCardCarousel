@@ -103,7 +103,23 @@ class ViewController: UIViewController {
 
     //MARK:- Gesture recognizer helper method
     @objc fileprivate func performPanAction(recognizer: UIPanGestureRecognizer) {
+        //update carousel transform layout values
         
+        //get translation of our finger position in our view; x view only since we're only panning in one direction
+        let xOffset = recognizer.translation(in: self.view).x
+        
+        if recognizer.state == .began {
+            currentOffset = 0
+        }
+        
+        //figure out how far we've scrolled with our finger
+        //using 0.6 to slow down the animation, but this is obviously a matter of taste
+        let xDifference = xOffset * 0.6 - currentOffset
+        currentOffset += xDifference
+        currentAngle += xDifference
+        
+        //update the values continuously while the finger is moving
+        turnCarousel()
     }
 
 }
