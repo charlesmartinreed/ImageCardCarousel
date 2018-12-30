@@ -14,6 +14,10 @@ class ViewController: UIViewController {
     func degreeToRadians(deg: CGFloat) -> CGFloat {
         return (deg * CGFloat.pi) / 180
     }
+    
+    //MARK:- IBOutlets
+    @IBOutlet weak var visitSiteButton: VisitSiteButton!
+    
 
     //MARK:- Properties
     let imageNames: [String] = ["Ajanta Caves", "Ellora Caves", "Agra Fort", "Taj Mahal", "Sun Temple", "Monuments at Mahabalipuram", "Kaziranga National Park"]
@@ -32,7 +36,7 @@ class ViewController: UIViewController {
         view.layer.addSublayer(transformLayer)
         
         //for loop to add images to the transformLayer
-        for i in 1..<imageNames.count { //6 because we only have 6 images at the moment
+        for i in 0..<imageNames.count { //6 because we only have 6 images at the moment
             addImageCard(name: "\(i)", title: String(imageNames[i]))
         }
         
@@ -56,6 +60,7 @@ class ViewController: UIViewController {
         
         //define the image card seg size needed to create a circle
         let segmentForImageCard = CGFloat(360 / transformSubLayers.count)
+        print(transformSubLayers.count)
         
         //get the angle offset for each image
         var angleOffset = currentAngle
@@ -73,8 +78,29 @@ class ViewController: UIViewController {
             
             CATransaction.setAnimationDuration(0) //we're setting the transform animation time to our pan gesture, so we disable the default time duration here
             layer.transform = transform
-            
             angleOffset += segmentForImageCard
+            
+            print(currentAngle)
+            
+            //try updating the title for the button
+            switch abs(currentAngle) {
+            case 0...51:
+                visitSiteButton.setTitle("\(imageNames[0])", for: .normal)
+            case 52...102:
+                visitSiteButton.setTitle("\(imageNames[1])", for: .normal)
+            case 103...153:
+                visitSiteButton.setTitle("\(imageNames[2])", for: .normal)
+            case 154...204:
+                visitSiteButton.setTitle("\(imageNames[3])", for: .normal)
+            case 205...255:
+                visitSiteButton.setTitle("\(imageNames[4])", for: .normal)
+            case 256...306:
+                visitSiteButton.setTitle("\(imageNames[5])", for: .normal)
+            case 307...360:
+                visitSiteButton.setTitle("\(imageNames[6])", for: .normal)
+            default:
+                break
+            }
         }
 }
     
@@ -89,16 +115,18 @@ class ViewController: UIViewController {
         
         //create the image title layer
         let imageTitleLayer = CATextLayer()
+        imageTitleLayer.name = title
         //create a CATextLayer to serve as label
-        let imageTitleLayerWidth: CGFloat = 150
+        let imageTitleLayerWidth: CGFloat = 180
         let imageTitleLayerHeight: CGFloat = 100
         //imageTitleLayer.frame = CGRect(x: imageLayer.frame.width * 2 + imageTitleLayerWidth , y: imageLayer.frame.height / 2 + imageTitleLayerHeight, width: imageTitleLayerWidth, height: imageTitleLayerHeight)
         imageTitleLayer.frame = CGRect(x: (imageLayer.bounds.width / 2) - (imageTitleLayerWidth / 2), y: imageLayer.bounds.height - 24, width: imageTitleLayerWidth, height: imageTitleLayerHeight)
         
-        imageTitleLayer.string = imageLayer.name
-        imageTitleLayer.foregroundColor = UIColor.blue.cgColor
+        imageTitleLayer.font = UIFont.boldSystemFont(ofSize: 14)
+        imageTitleLayer.string = imageTitleLayer.name
+        imageTitleLayer.foregroundColor = UIColor.white.cgColor
         imageTitleLayer.contentsScale = UIScreen.main.scale //should fix the blurred text issue
-        imageTitleLayer.fontSize = 14
+        imageTitleLayer.fontSize = 12
         
         imageLayer.addSublayer(imageTitleLayer)
         
@@ -113,8 +141,9 @@ class ViewController: UIViewController {
         imageLayer.masksToBounds = true
         
         //imageLayer properties
-        imageLayer.isDoubleSided = false //makes the backside visible when we're rotating our layer in 3D
-        imageLayer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
+        imageLayer.isDoubleSided = true //makes the backside visible when we're rotating our layer in 3D
+        //imageLayer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
+        imageLayer.borderColor = UIColor.highlightColor.cgColor
         imageLayer.borderWidth = 5
         imageLayer.cornerRadius = 10
         
@@ -139,48 +168,32 @@ class ViewController: UIViewController {
         currentOffset += xDifference
         currentAngle += xDifference
         
+        
         //update the values continuously while the finger is moving
         turnCarousel()
     }
     
     @objc fileprivate func performTapAction(recognizer: UITapGestureRecognizer) {
-        //center the card in question
-        
-        
         //TESTING: print the name of the wonder depicted in the image
         let touchLocation = recognizer.location(in: self.view)
-        //print(touchLocation)
+        //var locations = [String]()
         
         guard let sublayers = transformLayer.sublayers else { return }
-        //grab the imageLayer
+        
+        //grab reference of the tapped imageLayer
         for layer in sublayers {
             if layer.frame.contains(touchLocation) {
                 guard let locationName = layer.name else { return }
-                print(locationName)
+                    print(locationName)
+                }
             }
         }
+    
+    //MARK:- IBActions
+    @IBAction func visitSiteButtonTapped(_ sender: VisitSiteButton) {
+        guard let locationString = sender.titleLabel?.text else { return }
+        print(locationString)
     }
+    
 
-}
-
-extension CATextLayer {
-    static let textLabel: CATextLayer = {
-       let label = CATextLayer()
-        label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.foregroundColor = UIColor.white.cgColor
-        return label
-    }()
-}
-
-extension UIView {
-    func anchorBottomRight() {
-        translatesAutoresizingMaskIntoConstraints = false
-        if let superviewTrailing = superview?.trailingAnchor {
-            trailingAnchor.constraint(equalTo: superviewTrailing, constant: -8)
-        }
-        
-        if let superviewBottom = superview?.bottomAnchor {
-            bottomAnchor.constraint(equalTo: superviewBottom, constant: -8)
-        }
-    }
 }

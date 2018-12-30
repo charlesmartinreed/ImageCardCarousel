@@ -17,9 +17,26 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1X-9k-JR3" customClass="VisitSiteButton" customModule="ImageCardCarousel" customModuleProvider="target">
+                                <rect key="frame" x="20" y="782" width="374" height="30"/>
+                                <state key="normal" title="Visit Site"/>
+                                <connections>
+                                    <action selector="visitSiteButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hlx-l5-Hke"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="S1X-9k-JR3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="5iB-f7-Ydm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="S1X-9k-JR3" secondAttribute="trailing" constant="20" id="E2S-9V-Cdt"/>
+                            <constraint firstItem="S1X-9k-JR3" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-50" id="p0m-XK-dnD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="visitSiteButton" destination="S1X-9k-JR3" id="5kI-BW-loQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

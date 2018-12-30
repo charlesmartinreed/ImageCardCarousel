@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8CA3C2A321D96E2100AA8A09 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3C2A221D96E2100AA8A09 /* Button.swift */; };
+		8CA3C2A621D9713900AA8A09 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3C2A521D9713900AA8A09 /* Colors.swift */; };
 		8CFB69AE21D6BB2F005A5506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFB69AD21D6BB2F005A5506 /* AppDelegate.swift */; };
 		8CFB69B021D6BB2F005A5506 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFB69AF21D6BB2F005A5506 /* ViewController.swift */; };
 		8CFB69B321D6BB2F005A5506 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CFB69B121D6BB2F005A5506 /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8CA3C2A221D96E2100AA8A09 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		8CA3C2A521D9713900AA8A09 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		8CFB69AA21D6BB2F005A5506 /* ImageCardCarousel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCardCarousel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CFB69AD21D6BB2F005A5506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CFB69AF21D6BB2F005A5506 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +39,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8CA3C2A421D96E2600AA8A09 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				8CA3C2A221D96E2100AA8A09 /* Button.swift */,
+				8CA3C2A521D9713900AA8A09 /* Colors.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		8CFB69A121D6BB2F005A5506 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +73,7 @@
 				8CFB69B421D6BB32005A5506 /* Assets.xcassets */,
 				8CFB69B621D6BB32005A5506 /* LaunchScreen.storyboard */,
 				8CFB69B921D6BB32005A5506 /* Info.plist */,
+				8CA3C2A421D96E2600AA8A09 /* Custom */,
 			);
 			path = ImageCardCarousel;
 			sourceTree = "<group>";
@@ -136,6 +150,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CFB69B021D6BB2F005A5506 /* ViewController.swift in Sources */,
+				8CA3C2A621D9713900AA8A09 /* Colors.swift in Sources */,
+				8CA3C2A321D96E2100AA8A09 /* Button.swift in Sources */,
 				8CFB69AE21D6BB2F005A5506 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
