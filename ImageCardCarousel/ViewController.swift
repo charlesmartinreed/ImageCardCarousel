@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SafariServices
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SFSafariViewControllerDelegate {
     
     //a helper function that converts a degree angle to radians
     func degreeToRadians(deg: CGFloat) -> CGFloat {
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
 
     //MARK:- Properties
     let imageNames: [String] = ["Ajanta Caves", "Ellora Caves", "Agra Fort", "Taj Mahal", "Sun Temple", "Monuments at Mahabalipuram", "Kaziranga National Park"]
+    var safariVC: SFSafariViewController?
     
     let transformLayer = CATransformLayer()
     var currentAngle: CGFloat = 0
@@ -31,6 +33,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        safariVC?.delegate = self
         
         transformLayer.frame = self.view.bounds //grab the screen size
         view.layer.addSublayer(transformLayer)
@@ -84,19 +87,19 @@ class ViewController: UIViewController {
             
             //try updating the title for the button
             switch abs(currentAngle) {
-            case 0...51:
+            case 0..<49:
                 visitSiteButton.setTitle("\(imageNames[0])", for: .normal)
-            case 52...102:
+            case 49..<99:
                 visitSiteButton.setTitle("\(imageNames[1])", for: .normal)
-            case 103...153:
+            case 99...149:
                 visitSiteButton.setTitle("\(imageNames[2])", for: .normal)
-            case 154...204:
+            case 149..<201:
                 visitSiteButton.setTitle("\(imageNames[3])", for: .normal)
-            case 205...255:
+            case 201..<251:
                 visitSiteButton.setTitle("\(imageNames[4])", for: .normal)
-            case 256...306:
+            case 251..<301:
                 visitSiteButton.setTitle("\(imageNames[5])", for: .normal)
-            case 307...360:
+            case 301...360:
                 visitSiteButton.setTitle("\(imageNames[6])", for: .normal)
             default:
                 break
@@ -192,7 +195,20 @@ class ViewController: UIViewController {
     //MARK:- IBActions
     @IBAction func visitSiteButtonTapped(_ sender: VisitSiteButton) {
         guard let locationString = sender.titleLabel?.text else { return }
-        print(locationString)
+        let url = "http://en.wikipedia.org/wiki/\(locationString)".replacingOccurrences(of: " ", with: "_")
+        print(url)
+        showSafariVC(for: url)
+    }
+    
+    func showSafariVC(for url: String) {
+        guard let url = URL(string: url) else {
+            return
+        }
+        
+        //pass the valid URL to safariVC
+        print("sending you off to \(url)")
+        safariVC = SFSafariViewController(url: url)
+        present(safariVC!, animated: true, completion: nil)
     }
     
 
