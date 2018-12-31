@@ -4,7 +4,7 @@
 //
 //  Created by Charles Martin Reed on 12/28/18.
 //  Copyright © 2018 Charles Martin Reed. All rights reserved.
-//
+// NOTE: Currently this code has a problem with maintaining proper angles once the angle exceeds -360 or above 360.
 
 import UIKit
 import SafariServices
@@ -73,7 +73,7 @@ class ViewController: UIViewController, SFSafariViewControllerDelegate {
         for layer in transformSubLayers {
             //create a 4x4 matrix
             var transform = CATransform3DIdentity
-            transform.m34 = -1 / 500 //this matrix element is responsible for depth of perspective, closer to 0 equals deeper perspective
+            transform.m34 = -1.2 / 500 //this matrix element is responsible for depth of perspective, closer to 0 equals deeper perspective
             
             //rotate around the Y axis
             transform = CATransform3DRotate(transform, degreeToRadians(deg: angleOffset), 0, 1, 0)
@@ -82,8 +82,6 @@ class ViewController: UIViewController, SFSafariViewControllerDelegate {
             CATransaction.setAnimationDuration(0) //we're setting the transform animation time to our pan gesture, so we disable the default time duration here
             layer.transform = transform
             angleOffset += segmentForImageCard
-            
-            print(currentAngle)
             
             //try updating the title for the button
             switch abs(currentAngle) {
@@ -127,7 +125,7 @@ class ViewController: UIViewController, SFSafariViewControllerDelegate {
         
         imageTitleLayer.font = UIFont.boldSystemFont(ofSize: 14)
         imageTitleLayer.string = imageTitleLayer.name
-        imageTitleLayer.foregroundColor = UIColor.white.cgColor
+        imageTitleLayer.foregroundColor = UIColor.black.cgColor
         imageTitleLayer.contentsScale = UIScreen.main.scale //should fix the blurred text issue
         imageTitleLayer.fontSize = 12
         
@@ -146,7 +144,7 @@ class ViewController: UIViewController, SFSafariViewControllerDelegate {
         //imageLayer properties
         imageLayer.isDoubleSided = true //makes the backside visible when we're rotating our layer in 3D
         //imageLayer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
-        imageLayer.borderColor = UIColor.highlightColor.cgColor
+        imageLayer.borderColor = UIColor.strongHighlight.cgColor
         imageLayer.borderWidth = 5
         imageLayer.cornerRadius = 10
         

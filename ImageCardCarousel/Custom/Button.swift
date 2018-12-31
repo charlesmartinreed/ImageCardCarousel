@@ -20,12 +20,12 @@ class VisitSiteButton: UIButton {
     }
     
     private func setupVisitSiteButton(){
-        backgroundColor = UIColor.highlightColor
+        backgroundColor = UIColor.paleBlue
         layer.cornerRadius = 12
         titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         setTitle("Visit Site", for: .normal)
-        setTitleColor(.white, for: .normal)
+        setTitleColor(UIColor.black, for: .normal)
     }
     
 }
